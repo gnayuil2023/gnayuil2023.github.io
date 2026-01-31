@@ -1,92 +1,75 @@
 ---
-title: "Linux 常用命令"
-description: "Migrated from original blog"
-pubDate: "2023-07-10T03:05:21.000Z"
+title: "Linux 常用命令完全手册"
+description: "从基础的文件操作到高级的网络工具和系统管理，一份全面的 Linux 常用命令参考指南。"
+pubDate: "2023-07-20T09:15:00.000Z"
 heroImage: "/assets/blog-placeholder-3.jpg"
 ---
 
-### < id="常用命令整理">常用命令整理>
+在 Linux 的世界里，命令行（Terminal）是最高效的生产力工具。无论你是开发者、系统管理员还是技术爱好者，熟练掌握常用命令都是必经之路。本文将为你梳理那些最常用的 Linux 命令，并按功能进行分类。
 
-查看当前文件目录下的所有文件ls
+### 1. 文件与目录操作
 
-查看根目录下的文件ls /
+这是最基础的部分，涵盖了查看、创建、删除和移动文件的操作。
 
-查看根目录的详细属性ls -ld /
+- `ls`: 列出目录内容。
+  - `ls -l`: 显示详细信息（权限、大小、修改时间）。
+  - `ls -a`: 显示隐藏文件。
+- `cd`: 切换目录。
+  - `cd ~`: 回到家目录。
+  - `cd ..`: 回到上一级目录。
+- `pwd`: 显示当前工作目录的完整路径。
+- `mkdir`: 创建新目录。使用 `mkdir -p a/b/c` 可以创建多级目录。
+- `touch`: 创建空文件或更新文件的时间戳。
+- `rm`: 删除文件或目录。
+  - `rm -rf`: 强制递归删除目录（慎用！）。
+- `cp`: 复制文件或目录。
+- `mv`: 移动或重命名文件或目录。
 
-查看当前文件目录下所有文件的详细信息# 可查看文件的文件名、创建时间、操作权限等信息
-ll
+### 2. 查看文件内容
 
-查看某个文件的内容# fileName为文件名
-cat fileName
+- `cat`: 连接并打印文件内容。适合查看小文件。
+- `more` / `less`: 分页查看大文件内容。`less` 功能更强大，支持前后翻页。
+- `head` / `tail`: 查看文件的前几行或后几行。
+  - `tail -f`: 实时滚动查看日志文件。
 
-清空终端上的内容clear
+### 3. 网络工具与远程连接
 
-进入某个文件夹下# ~/.ssh 表示文件夹的路径
-cd ~/.ssh
+- `ifconfig` / `ip addr`: 查看本机的网络接口信息和 IP 地址。
+- `ping`: 测试网络连通性。
+- `wget` / `curl`: 从网络下载文件。
+- `ssh`: 安全远程连接。
+  - `ssh-keygen -t rsa`: 生成 RSA 密钥对。
+- `scp`: 在本地和远程服务器之间安全地复制文件。
 
-创建文件目录# test 表示文件目录名称
-mkdir test
+### 4. 压缩与解压缩
 
-创建多级文件目录# test/data/fyt 表示文件目录
-mkdir -p test/data/fyt
+- `tar`: 打包或解压文件。
+  - `tar -cvf`: 打包。
+  - `tar -xvf`: 解包。
+  - `tar -zxvf`: 解压 `.tar.gz` 文件。
 
-刪除文件目录# test 表示文件目录名称
-rmdir test
+### 5. 系统管理与搜索
 
-创建文件# a.md 表示需要创建的文件
-touch test.md
+- `history`: 查看执行过的历史命令。
+- `top` / `htop`: 实时显示系统进程和资源占用情况。
+- `ps -ef`: 查看当前运行的所有进程。
+- `grep`: 强大的文本搜索工具，常与管道符 `|` 配合使用。
+- `whereis`: 查找命令的二进制文件、源代码和手册页。
 
-回到上一级目录cd ..
+### 6. 进阶技巧：Base64 与 Redis 基础
 
-回到根目录cd ~
+在开发中，我们也常会用到一些特定的工具命令：
 
-查看本机的ip地址ifconfig
+- **Base64 编解码：**
+  - 加密：`echo "text" | base64`
+  - 解密：`echo "encoded_text" | base64 -d`
+- **Redis 基础操作：**
+  - `redis-cli`: 进入 Redis 客户端。
+  - `auth password`: 密码登录。
+  - `select index`: 切换数据库。
+  - `keys *`: 查看所有键。
+  - `flushall`: 清空所有数据（慎用！）。
 
-清屏clear
+### 结语
 
-安装 wgetyum -y install wget
-
-安装网络工具包yum install net-tools -y 
-
-查看当前工作目录pwd
-
-查看命令行中操作的历史记录history
-
-将文件传送到 Linux 服务器上# hi.c 需要上传到 Linux 服务器上的文件
-# root 登录 Linux 服务器的用户名
-# 192.168.50.23 Linux 服务器的 ip 地址
-scp hi.c root@192.168.50.23/root
-
-解压文件# node-v12.4.0.tar.xz 要解压的文件
-tar -xvf node-v12.4.0.tar.xz
-
-使用 rsa 算法生成秘钥ssh-keygen -t rsa
-
-在终端中查看生成的公钥cat ~/.ssh/id_rsa.pub
-
-在 vim 中查看生成的公钥vim  ~/.ssh/id_rsa.pub
-
-检测是否和 github 建立连接ssh -T git@github.com
-
-退出 vim:wq
-
-关闭 Linux 服务器shutdown
-
-base64 加密echo "hello world" | base64
-
-base64 解密echo "aGVsbG8gd29ybGQK" | base64 -d
-
-查看文件所在的目录# 查看 redis 所在的目录
-whereis redis
-
-进入 redis 数据库操作界面redis-cli
-
-登录 redis 数据库# 009527 为登录 redis 数据库的密码
-auth 009527
-
-进入 redis 下的某个数据库# 8 表示进入 redis 下的第 8 个数据库
-select 8
-
-查看 redis 数据库下的所有数据keys *
-
-删除 redis 数据库中的数据flushall
+掌握这些命令只是开始，真正的精髓在于通过管道 `|` 和重定向 `>` 将这些命令组合起来，构建出强大的自动化流程。建议将此手册收藏，作为你 Linux 学习之路上的随身备忘录。
