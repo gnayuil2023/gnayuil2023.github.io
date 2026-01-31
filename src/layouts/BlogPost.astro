@@ -17,37 +17,39 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 	<body class="bg-slate-50">
 		<Header />
-		<main class="max-w-4xl mx-auto px-4 py-12">
+		<main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
 			<article class="glass-card overflow-hidden">
 				{heroImage && (
 					<div class="w-full aspect-video overflow-hidden">
 						<img src={heroImage} alt="" class="w-full h-full object-cover" />
 					</div>
 				)}
-				<div class="p-8 md:p-12">
-					<header class="mb-12 text-center">
-						<div class="text-slate-500 mb-4">
+				<div class="p-5 sm:p-8 md:p-12">
+					<header class="mb-8 md:mb-12 text-center">
+						<div class="text-sm md:text-base text-slate-500 mb-4">
 							<FormattedDate date={pubDate} />
 							{updatedDate && (
-								<span class="italic ml-2">
+								<span class="italic ml-2 text-xs md:text-sm">
 									(更新于 <FormattedDate date={updatedDate} />)
 								</span>
 							)}
 						</div>
-						<h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+						<h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
 							{title}
 						</h1>
-						<p class="text-xl text-slate-600 italic">
+						<p class="text-lg md:text-xl text-slate-600 italic px-2">
 							{description}
 						</p>
-						<div class="w-24 h-1 bg-blue-600 mx-auto mt-8 rounded-full"></div>
+						<div class="w-20 md:w-24 h-1 bg-blue-600 mx-auto mt-6 md:mt-8 rounded-full"></div>
 					</header>
 					
-					<div class="prose prose-lg prose-slate max-w-none 
+					<div class="prose prose-slate max-w-none 
+						prose-sm sm:prose-base md:prose-lg
 						prose-headings:text-slate-900 prose-headings:font-bold
 						prose-p:text-slate-700 prose-p:leading-relaxed
 						prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-						prose-img:rounded-xl prose-img:shadow-lg">
+						prose-img:rounded-xl prose-img:shadow-lg
+						prose-pre:max-w-full prose-pre:overflow-x-auto">
 						<slot />
 					</div>
 				</div>
