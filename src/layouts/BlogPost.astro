@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body class="bg-slate-50">
+		<Header />
+		<main class="max-w-4xl mx-auto px-4 py-12">
+			<article class="glass-card overflow-hidden">
+				{heroImage && (
+					<div class="w-full aspect-video overflow-hidden">
+						<img src={heroImage} alt="" class="w-full h-full object-cover" />
+					</div>
+				)}
+				<div class="p-8 md:p-12">
+					<header class="mb-12 text-center">
+						<div class="text-slate-500 mb-4">
+							<FormattedDate date={pubDate} />
+							{updatedDate && (
+								<span class="italic ml-2">
+									(更新于 <FormattedDate date={updatedDate} />)
+								</span>
+							)}
+						</div>
+						<h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+							{title}
+						</h1>
+						<p class="text-xl text-slate-600 italic">
+							{description}
+						</p>
+						<div class="w-24 h-1 bg-blue-600 mx-auto mt-8 rounded-full"></div>
+					</header>
+					
+					<div class="prose prose-lg prose-slate max-w-none 
+						prose-headings:text-slate-900 prose-headings:font-bold
+						prose-p:text-slate-700 prose-p:leading-relaxed
+						prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+						prose-img:rounded-xl prose-img:shadow-lg">
+						<slot />
+					</div>
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
